@@ -2,10 +2,12 @@
 import { useNavigate } from "react-router";
 import { fade } from "../animations/pageAnimations";
 
+// Asegúrate de que esta ruta a la imagen sea correcta en tu carpeta de assets
 const imgJukumariEstudiante = "/src/assets/images/modules/osa_jukumari.png"; 
 
 function Login() {
-    document.title = "Acceso • ¡Tabla de Glécio!";
+    // Título actualizado con la marca Ututuy
+    document.title = "Acceso • Ututuy | ¡Qué rikito es saber!";
     const navigate = useNavigate();
 
     return (
@@ -40,7 +42,8 @@ function Login() {
                     </div>
                     
                     <button 
-                        onClick={() => navigate("/")} // <-- CORREGIDO: Antes decía "/Home"
+                        // CORREGIDO: Ahora redirige a la pantalla de bienvenida del estudiante
+                        onClick={() => navigate("/home")} 
                         className="rounded-full bg-[#f9d423] px-16 py-6 text-3xl font-black text-[#020131] shadow-[0_8px_0px_#d79800] transition-all hover:bg-[#eae374] hover:shadow-[0_4px_0px_#d79800] hover:translate-y-1 active:scale-95 active:shadow-[0_0_0px_#d79800]"
                     >
                         Ingresar Aquí
@@ -58,6 +61,7 @@ function Login() {
 
                 <div className="relative flex flex-col items-center space-y-10 z-10 text-center">
                     <div className="p-8 bg-[#fc913a] rounded-full shadow-2xl">
+                        {/* Icono de Usuario/Docente */}
                         <svg className="w-40 h-40 text-white" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="30" r="15" fill="currentColor"/>
                             <path d="M20 80C20 63.4315 33.4315 50 50 50V50C66.5685 50 80 63.4315 80 80V85H20V80Z" fill="currentColor"/>
