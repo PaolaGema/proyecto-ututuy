@@ -10,9 +10,10 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import ButtonPageBack from "../components/buttons/ButtonPageBack";
-import islandMultiplicacion from "../assets/images/modules/osa_jukumari.png";
-import leccionSexualidadImg from "../assets/images/modules/leccion_sexualidad.png";
+import ButtonPageBack from "../../components/buttons/ButtonPageBack";
+// Ajuste de rutas para assets
+import islandMultiplicacion from "../../assets/images/modules/osa_jukumari.png";
+import leccionSexualidadImg from "../../assets/images/modules/leccion_sexualidad.png";
 
 /* CAMBIAR IMAGEN */
 const routeNodes = [
@@ -81,7 +82,7 @@ function SexualidadRoute() {
 
     const handleNodeClick = (node) => {
         if (node.state !== "current") {
-            toast.info("Este punto se desbloqueara pronto.", {
+            toast.info("Este punto se desbloqueará pronto.", {
                 className: "bg-surface",
             });
             return;
@@ -214,7 +215,7 @@ function SexualidadRoute() {
                             <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/15 to-transparent" />
                             <img
                                 src={islandMultiplicacion}
-                                alt="Ilustracion de la isla de sexualidad"
+                                alt="Ilustración de la isla de sexualidad"
                                 className="w-full h-full object-cover"
                             />
                         </div>

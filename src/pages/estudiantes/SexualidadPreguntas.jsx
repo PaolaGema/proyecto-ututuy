@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { User } from "lucide-react";
 import { useNavigate } from "react-router";
-import { fade } from "../animations/pageAnimations";
+// ─── CAMBIO AQUÍ: Agregamos el ../ extra ───
+import { fade } from "../../animations/pageAnimations";
 
 function SexualidadPreguntas() {
     const navigate = useNavigate();

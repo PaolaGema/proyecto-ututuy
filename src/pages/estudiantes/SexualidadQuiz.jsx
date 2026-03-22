@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router";
-import ButtonPageBack from "../components/buttons/ButtonPageBack";
-import { fade } from "../animations/pageAnimations";
+import ButtonPageBack from "../../components/buttons/ButtonPageBack";
+import { fade } from "../../animations/pageAnimations";
 
-// Assets
-import imagenA from "../assets/images/modules/incorrecta1.png";
-import imagenB from "../assets/images/modules/correcta1.png";
-import imagenC from "../assets/images/modules/incorrecta1-1.png";
+// ─── CAMBIO AQUÍ: Ajuste de rutas para Assets (subimos dos niveles) ───
+import imagenA from "../../assets/images/modules/incorrecta1.png";
+import imagenB from "../../assets/images/modules/correcta1.png";
+import imagenC from "../../assets/images/modules/incorrecta1-1.png";
 
 const contentMap = {
     A: {

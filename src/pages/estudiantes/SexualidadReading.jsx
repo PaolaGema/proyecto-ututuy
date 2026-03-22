@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import ButtonPageBack from "../components/buttons/ButtonPageBack";
-import imagen1 from "../assets/images/historietas/MODULO_1_HISTORIETA..jpg";
+import ButtonPageBack from "../../components/buttons/ButtonPageBack";
+// ─── CAMBIO AQUÍ: Agregamos el ../ extra para llegar a assets ───
+import imagen1 from "../../assets/images/historietas/MODULO_1_HISTORIETA..jpg";
 
 const comicPages = [
     {

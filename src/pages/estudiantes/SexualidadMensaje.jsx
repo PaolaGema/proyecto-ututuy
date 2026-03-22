@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router";
-import { fade } from "../animations/pageAnimations";
+// ─── CAMBIO AQUÍ: Agregamos un ../ extra para salir de 'estudiantes' y luego de 'pages' ───
+import { fade } from "../../animations/pageAnimations"; 
 import { ArrowLeft, AlertTriangle, Heart, User } from "lucide-react";
 
-// 1. IMPORTA TU IMAGEN AQUÍ (Ajusta la ruta si es necesario)
-import imagenCelebracion from "../assets/images/modules/correcta1.png";
+// ─── CAMBIO AQUÍ: Ajustamos la ruta de la imagen con ../../ ───
+import imagenCelebracion from "../../assets/images/modules/correcta1.png";
 
 function SexualidadMensaje() {
     const navigate = useNavigate();

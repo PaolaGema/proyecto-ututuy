@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router";
-import { fade } from "../animations/pageAnimations";
+// ─── CAMBIO 1: Ajuste de ruta para animaciones ───
+import { fade } from "../../animations/pageAnimations";
 
-// Assets
-import llamaPersonaje from "../assets/images/elements/selected-indicator.svg"; 
+// ─── CAMBIO 2: Ajuste de ruta para Assets ───
+import llamaPersonaje from "../../assets/images/elements/selected-indicator.svg"; 
 
 function SexualidadDefinicion() {
     const navigate = useNavigate();
@@ -15,7 +16,6 @@ function SexualidadDefinicion() {
             initial="initial"
             animate="animate"
             exit="exit"
-            // py-12 para dar aire arriba y abajo
             className="min-h-screen bg-[#090118] text-white relative flex items-center justify-center py-12 overflow-y-auto"
         >
             {/* FONDO */}
@@ -65,7 +65,7 @@ function SexualidadDefinicion() {
                     {/* NUEVO BOTÓN: CONTINUAR PARA APRENDER MÁS */}
                     <div className="flex justify-center md:justify-end mt-4">
                         <button
-                            onClick={() => navigate("/play/sexualidad/preguntas-personales")} // Cambia esta ruta a la de las preguntas
+                            onClick={() => navigate("/play/sexualidad/preguntas-personales")} 
                             className="group flex items-center gap-3 px-8 py-4 rounded-full bg-[#4E2A93] text-white font-black hover:bg-[#5e35b1] transition-all shadow-[0_0_20px_rgba(78,42,147,0.4)] hover:scale-105 active:scale-95 uppercase italic tracking-wider text-sm md:text-base border-b-4 border-[#311b5e]"
                         >
                             Continuar para aprender más
