@@ -1,0 +1,27 @@
+<svg width="800" height="420" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgFra" x1="0" y1="0" x2="800" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E01226"/>
+      <stop offset="1" stop-color="#FF6A7A"/>
+    </linearGradient>
+    <linearGradient id="islandFra" x1="200" y1="150" x2="600" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFE0A6"/>
+      <stop offset="1" stop-color="#D6A15A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#bgFra)"/>
+  <ellipse cx="400" cy="355" rx="320" ry="70" fill="#87111D" fill-opacity="0.42"/>
+  <ellipse cx="400" cy="290" rx="220" ry="95" fill="url(#islandFra)"/>
+
+  <rect x="320" y="157" width="160" height="84" rx="12" fill="#1A1525" fill-opacity="0.84"/>
+  <text x="400" y="194" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#F5F0FF">3/4 + 1/4</text>
+  <text x="400" y="222" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#F5F0FF">= ?</text>
+
+  <circle cx="285" cy="245" r="20" fill="#7B4EC7" fill-opacity="0.7"/>
+  <circle cx="515" cy="245" r="20" fill="#7B4EC7" fill-opacity="0.7"/>
+  <circle cx="400" cy="255" r="16" fill="#7B4EC7" fill-opacity="0.7"/>
+
+  <text x="400" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">Isla de Fracciones</text>
+</svg>
+

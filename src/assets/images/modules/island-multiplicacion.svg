@@ -1,0 +1,26 @@
+<svg width="800" height="420" viewBox="0 0 800 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgMul" x1="0" y1="0" x2="800" y2="420" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7B4EC7"/>
+      <stop offset="1" stop-color="#B386FF"/>
+    </linearGradient>
+    <linearGradient id="islandMul" x1="220" y1="150" x2="620" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F7D682"/>
+      <stop offset="1" stop-color="#D79D36"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="420" fill="url(#bgMul)"/>
+  <ellipse cx="400" cy="355" rx="320" ry="70" fill="#4C2E7E" fill-opacity="0.55"/>
+  <ellipse cx="400" cy="290" rx="220" ry="95" fill="url(#islandMul)"/>
+
+  <circle cx="300" cy="240" r="18" fill="#0EA022"/>
+  <circle cx="510" cy="250" r="16" fill="#0EA022"/>
+  <circle cx="420" cy="220" r="13" fill="#0EA022"/>
+
+  <rect x="335" y="165" width="130" height="70" rx="12" fill="#1A1525" fill-opacity="0.82"/>
+  <text x="400" y="208" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#F5F0FF">7 x 8</text>
+
+  <text x="400" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF">Isla de Multiplicacion</text>
+</svg>
+

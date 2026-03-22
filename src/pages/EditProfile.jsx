@@ -1,0 +1,194 @@
+﻿import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { fade, scrollFromRight } from "../animations/pageAnimations";
+import ButtonPageBack from "../components/buttons/ButtonPageBack";
+import ButtonSuccess from "../components/buttons/ButtonSuccess";
+import Input from "../components/Input";
+import Select from "../components/Select";
+import AvatarSelector from "../components/AvatarSelector";
+import {
+    getAvatarsList,
+    getCoursesList,
+    updateUser,
+} from "../services/userService";
+import { getLocalUserInfo } from "../utils/userUtils";
+import { SquareArrowOutUpRight } from "lucide-react";
+import { Link } from "react-router";
+import ContainerFadeAnimation from "../animations/components/ContainerFadeAnimation";
+
+function EditProfile() {
+    document.title = "Editar perfil · Juego de Glécio";
+
+    const [userInfo, setUserInfo] = useState({});
+
+    const [avatarsList, setAvatarsList] = useState([]);
+    const [coursesList, setCoursesList] = useState([]);
+    const [buttonIsLoading, setButtonIsLoading] = useState(false);
+
+    const [userData, setUserData] = useState({
+        avatar_id: 1,
+        name: "",
+        course_id: 1,
+    });
+
+    useEffect(() => {
+        const info = getLocalUserInfo();
+        setUserInfo(info);
+
+        // Actualiza userData con los datos obtenidos del usuario
+        setUserData((prev) => ({
+            ...prev,
+            name: info.name || "",
+            avatar_id: Number(info.avatarId) || 1,
+            course_id: Number(info.courseId) || 1,
+        }));
+    }, []);
+
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const courses = await getCoursesList();
+                setCoursesList(courses);
+            } catch (error) {
+                toast.error(
+                    error.message ||
+                        "Ocurrio un error al cargar la lista de cursos",
+                    {
+                        className: "bg-surface",
+                    },
+                );
+            }
+        };
+
+        const fetchAvatars = async () => {
+            try {
+                const avatars = await getAvatarsList();
+                setAvatarsList(avatars);
+            } catch (error) {
+                toast.error(
+                    error.message || "Ocurrio un error al cargar los avatares",
+                    {
+                        className: "bg-surface",
+                    },
+                );
+            }
+        };
+
+        fetchCourses();
+        fetchAvatars();
+    }, []);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setButtonIsLoading(true);
+
+        try {
+            const response = await updateUser(userData);
+            if (response.status_code === 200) {
+                toast.success(response.message, { className: "bg-surface" });
+            }
+        } catch (error) {
+            toast.error(
+                error.message ||
+                    "Ocurrio un error al actualizar tu informacion. Intenta de nuevo mas tarde.",
+                {
+                    className: "bg-surface",
+                },
+            );
+        }
+
+        setButtonIsLoading(false);
+    };
+
+    /** PREGUNTA: COMO SERA LA SELECCION DE AVATAR EN ESTA PAGINA? */
+
+    return (
+        <motion.div
+            variants={fade}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+        >
+            <ButtonPageBack to={-1} replace={true} absolute={true}>
+                Volver
+            </ButtonPageBack>
+            <main className="flex flex-col max-w-2xl gap-6 p-6 pt-24 lg:gap-16 sm:mx-auto">
+                <form onSubmit={handleSubmit}>
+                    <ContainerFadeAnimation initialDelay={0.4} className="flex flex-col gap-6">
+                        {/*<img
+                        src={userInfo.avatarDefault}
+                        alt={`${userInfo.name ?? "Anonimo"}'s avatar`}
+                        className="rounded-full w-28 bg-skeletonLoadingBase"
+                    />*/}
+                        <AvatarSelector
+                            label="Avatar"
+                            avatarsList={avatarsList}
+                            selectedAvatarIndex={userData.avatar_id}
+                            onSelect={(avatarId) =>
+                                setUserData((prev) => ({
+                                    ...prev,
+                                    avatar_id: avatarId,
+                                }))
+                            }
+                        />
+
+                        <Input
+                            label="Nombre"
+                            name="name"
+                            type="text"
+                            value={userData.name}
+                            onChange={(e) => {
+                                setUserData((prev) => ({
+                                    ...prev,
+                                    name: e.target.value,
+                                }));
+                            }}
+                        />
+
+                        <Select
+                            label="Curso"
+                            name="courses"
+                            values={coursesList}
+                            selectedValue={userData.course_id}
+                            onSelect={(courseId) => {
+                                setUserData((prev) => ({
+                                    ...prev,
+                                    course_id: courseId,
+                                }));
+                            }}
+                        />
+
+                        <Link
+                            to="/edit-profile/password"
+                            className="text-darkPurple flex gap-2 items-center p-3 bg-surface border border-darkPurple rounded-lg justify-between"
+                        >
+                            Cambiar tu contrasena
+                            <SquareArrowOutUpRight
+                                className="w-5 h-5"
+                                strokeWidth={1.8}
+                            />
+                        </Link>
+
+                        <ButtonSuccess
+                            type="submit"
+                            isLoading={buttonIsLoading}
+                            disabled={
+                                userData.name != userInfo.name ||
+                                userData.course_id != userInfo.courseId ||
+                                userData.avatar_id != userInfo.avatarId
+                                    ? false
+                                    : true
+                            }
+                        >
+                            Guardar cambios
+                        </ButtonSuccess>
+                    </ContainerFadeAnimation>
+                </form>
+            </main>
+        </motion.div>
+    );
+}
+
+export default EditProfile;
+

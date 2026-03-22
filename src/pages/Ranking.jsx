@@ -1,0 +1,47 @@
+﻿import { useNavigate } from "react-router";
+import RankingList from "../components/RankingList";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { fade, scrollFromRight } from "../animations/pageAnimations";
+import ButtonPageBack from "../components/buttons/ButtonPageBack";
+
+function Ranking() {
+   /*  document.title = "Ranking · Juego de Glécio"; */
+
+    const navigate = useNavigate();
+
+    /*useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 768) {
+                navigate("/", { replace: true });
+            }
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        handleResize();
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [navigate]);*/
+
+    return (
+        <motion.main
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            variants={fade}
+            onAnimationComplete={() =>
+                document.body.classList.remove("no-scroll")
+            }
+        >
+            <ButtonPageBack to={-1} absolute={true}>
+                Volver
+            </ButtonPageBack>
+            <RankingList />
+        </motion.main>
+    );
+}
+export default Ranking;
+
