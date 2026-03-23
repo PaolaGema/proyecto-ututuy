@@ -245,10 +245,10 @@ function Home() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-    const handlePlay = () => {
-        if (Howler.ctx && Howler.ctx.state === "suspended") Howler.ctx.resume();
-        navigate("/play");
-    };
+   const handlePlay = (target = "/play") => {
+    if (Howler.ctx && Howler.ctx.state === "suspended") Howler.ctx.resume();
+    navigate(target);
+};
 
     return (
         <motion.div initial="initial" animate="animate" exit="exit" variants={fade} style={S.root}>
@@ -284,9 +284,12 @@ function Home() {
                         ¡Aprende a tomar decisiones para cuidar tu cuerpo y tus relaciones!.
                     </motion.p>
 
-                    <motion.button style={S.ctaPrimary} whileHover={{ scale: 1.04, boxShadow: "0 8px 40px rgba(245,158,11,0.6)" }} whileTap={{ scale: 0.97 }} onClick={handlePlay}>
-                        <HiOutlinePlay style={{ width: 22, height: 22 }} />
-                        EMPEZAR AHORA
+                    <motion.button 
+                        style={S.ctaPrimary} 
+                        whileHover={{ scale: 1.05 }} 
+                        onClick={() => handlePlay("/play")} // <-- Cambiado a función de flecha
+                    >
+                        <HiOutlinePlay /> EMPEZAR AHORA
                     </motion.button>
                 </div>
             </section>
@@ -295,14 +298,26 @@ function Home() {
             <section style={S.quizSection}>
                 <div style={S.quizCircle} />
                 <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ position: "relative", zIndex: 1, maxWidth: "540px" }}>
+
                     <h2 style={{ fontWeight: 900, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", marginBottom: "0.75rem" }}>¿Te gustaría saber cuánto conoces de tu sexualidad?</h2>
+
                     <p style={{ color: "#b8a4e8", fontSize: "0.95rem" }}>Sobre tu forma de relacionarte y tus decisiones</p>
-                    <motion.button style={S.ctaSecondary} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={handlePlay}>
-                        <HiOutlinePlay />
-                        ¡Empezar ahora!
-                    </motion.button>
+
+                   
+                <motion.button 
+                    style={S.ctaSecondary} 
+                    whileHover={{ scale: 1.04 }} 
+                    whileTap={{ scale: 0.97 }} 
+                    onClick={() => handlePlay("/quiz-diagnostico")}
+                >
+                    <HiOutlinePlay />
+                    ¡Hacer test!
+                </motion.button>
                 </motion.div>
             </section>
+
+
+            
 
             {/* AUDIENCE SECTION */}
             <section style={S.audienceSection}>

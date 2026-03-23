@@ -1,79 +1,27 @@
 import { motion } from "framer-motion";
-import {
-    BookOpenText,
-    Gift,
-    Lock,
-    ShieldAlert,
-    Trophy,
-    HeartHandshake,
-    ShieldX,
-} from "lucide-react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import ButtonPageBack from "../../components/buttons/ButtonPageBack";
-// Ajuste de rutas para assets
+import { fade } from "../../animations/pageAnimations";
+
+// Assets
 import islandMultiplicacion from "../../assets/images/modules/osa_jukumari.png";
 import leccionSexualidadImg from "../../assets/images/modules/leccion_sexualidad.png";
+import leccionSexoImg from "../../assets/images/modules/leccion_sexo.png";
+import leccionGeneroImg from "../../assets/images/modules/leccion_genero.png";
+import leccionConsentimientoImg from "../../assets/images/modules/leccion_consentimiento.png";
+import leccionLimitesImg from "../../assets/images/modules/leccion_limites.png";
+import leccionViolenciaNoviazgoImg from "../../assets/images/modules/leccion_violencia_noviazgo.png";
+import leccionRelacionesSaludablesImg from "../../assets/images/modules/leccion_relaciones_saludables.png";
 
-/* CAMBIAR IMAGEN */
 const routeNodes = [
-    {
-        id: "desafio-1",
-        label: "Lección",
-        title: "Sexualidad",
-        image: leccionSexualidadImg,
-        state: "current",
-        offset: "ml-0",
-        route: "/play/sexualidad/lectura",
-    },
-    {
-        id: "desafio-2",
-        label: "Lección",
-        title: "Sexo",
-        icon: BookOpenText,
-        state: "locked",
-        offset: "ml-16",
-    },
-    {
-        id: "desafio-3",
-        label: "Lección",
-        title: "Género",
-        icon: ShieldAlert,
-        state: "locked",
-        offset: "ml-5",
-    },
-    {
-        id: "desafio-4",
-        label: "Lección",
-        title: "Consentimiento",
-        icon: Gift,
-        state: "locked",
-        offset: "ml-14",
-    },
-    {
-        id: "desafio-5",
-        label: "Lección",
-        title: "Límites",
-        icon: Trophy,
-        state: "locked",
-        offset: "ml-1",
-    },
-    {
-        id: "desafio-6",
-        label: "Lección",
-        title: "Violencia en el Noviazgo",
-        icon: ShieldX,
-        state: "locked",
-        offset: "ml-10",
-    },
-    {
-        id: "desafio-7",
-        label: "Lección",
-        title: "Relaciones Saludables",
-        icon: HeartHandshake,
-        state: "locked",
-        offset: "ml-8",
-    },
+    { id: "desafio-1", label: "Lección 1", title: "Sexualidad", image: leccionSexualidadImg, state: "current", offset: "ml-4", route: "/play/sexualidad/lectura" },
+    { id: "desafio-2", label: "Lección 2", title: "Sexo", image: leccionSexoImg, state: "current", offset: "ml-24", route: "/play/sexualidad/sexo_lectura1" },
+    { id: "desafio-3", label: "Lección 3", title: "Género", image: leccionGeneroImg, state: "current", offset: "ml-8", route: "/play/sexualidad/genero_lectura1" },
+    { id: "desafio-4", label: "Lección 4", title: "Consentimiento", image: leccionConsentimientoImg, state: "current", offset: "ml-28", route: "/play/sexualidad/consentimiento_lectura1" },
+    { id: "desafio-5", label: "Lección 5", title: "Límites", image: leccionLimitesImg, state: "current", offset: "ml-10", route: "/play/sexualidad/limites_lectura1" },
+    { id: "desafio-6", label: "Lección 6", title: "Violencia en el Noviazgo", image: leccionViolenciaNoviazgoImg, state: "current", offset: "ml-20", route: "/play/sexualidad/violencia_noviazgo_lectura1" },
+    { id: "desafio-7", label: "Lección 7", title: "Relaciones Saludables", image: leccionRelacionesSaludablesImg, state: "current", offset: "ml-12", route: "/play/sexualidad/relaciones_saludables_lectura1" },
 ];
 
 function SexualidadRoute() {
@@ -81,123 +29,100 @@ function SexualidadRoute() {
     const navigate = useNavigate();
 
     const handleNodeClick = (node) => {
-        if (node.state !== "current") {
-            toast.info("Este punto se desbloqueará pronto.", {
-                className: "bg-surface",
-            });
+        if (!node.route) {
+            toast.warning("Esta ruta aún no ha sido configurada.");
             return;
         }
-
         navigate(node.route);
     };
 
     return (
-        <main className="min-h-screen relative overflow-hidden text-surface">
+        <motion.main 
+            variants={fade} initial="initial" animate="animate" exit="exit"
+            className="min-h-screen relative overflow-hidden text-white"
+        >
+            {/* Fondos Temáticos */}
             <div className="absolute inset-0 bg-gradient-to-b from-[#241046] via-[#130627] to-[#0B021A]" />
-            <div className="absolute inset-0 opacity-30 [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:22px_22px]" />
-            <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[140%] h-56 bg-[#2A1350]/80 rounded-[100%]" />
-            <div className="absolute right-[-120px] top-24 w-72 h-72 rounded-full bg-[#2E1A56]/60 blur-3xl" />
-            <div className="absolute left-[-100px] bottom-20 w-72 h-72 rounded-full bg-[#3A2470]/40 blur-3xl" />
+            <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(#ffffff_1px,transparent_1px)] [background-size:32px_32px]" />
 
-            <section className="relative max-w-6xl mx-auto px-6 pt-20 pb-12">
+            <section className="relative max-w-7xl mx-auto px-6 pt-24 pb-20">
                 <ButtonPageBack to="/play" replace={true} absolute={true}>
                     Volver a Módulos
                 </ButtonPageBack>
 
-                <header className="text-center mb-10">
-                    <h1 className="text-5xl font-black mt-1">Modulo 1</h1>
-                    <p className="text-xl text-surface/85 mt-2">Sexualidad</p>
+                <header className="text-center mb-20">
+                    <motion.h1 
+                        initial={{ y: -20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        className="text-4xl font-black italic tracking-tighter"
+                    >
+                        MÓDULO 1
+                    </motion.h1>
+                    <p className="text-xl text-yellow-400 mt-2 font-bold tracking-[0.3em] uppercase">Sexualidad Integral</p>
                 </header>
 
-                <div className="grid md:grid-cols-[390px_1fr] gap-8 items-start">
-                    <div className="relative mx-auto w-full max-w-[360px]">
-                        <div className="absolute left-[48px] top-16 bottom-16 w-[6px] rounded-full bg-gradient-to-b from-surface/80 via-surface/25 to-surface/10" />
+                <div className="grid md:grid-cols-[1fr_500px] gap-10 items-start">
+                    
+                    {/* SECCIÓN CAMINO (IZQUIERDA) */}
+                    <div className="relative mx-auto w-full max-w-[420px]">
+                        {/* SVG del Camino Curvo */}
+                        <svg 
+                            className="absolute left-0 top-0 w-full h-full pointer-events-none z-0"
+                            viewBox="0 0 420 1200" 
+                            fill="none" 
+                            preserveAspectRatio="none"
+                        >
+                            <motion.path 
+                                d="M 60 60 Q 250 150 80 300 T 150 550 T 80 800 T 140 1050" 
+                                stroke="url(#line-gradient)" 
+                                strokeWidth="10" 
+                                strokeLinecap="round" 
+                                strokeDasharray="20 25"
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 2, ease: "easeInOut" }}
+                            />
+                            <defs>
+                                <linearGradient id="line-gradient" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#FFD24D" />
+                                    <stop offset="100%" stopColor="#F3692A" stopOpacity="0" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
 
-                        <div className="space-y-7">
+                        <div className="relative z-10 space-y-20">
                             {routeNodes.map((node, index) => {
                                 const isCurrent = node.state === "current";
-                                const isLocked = node.state === "locked";
-                                const hasImage = node.image;
-                                const Icon = node.icon;
-
                                 return (
                                     <motion.button
                                         key={node.id}
-                                        type="button"
                                         onClick={() => handleNodeClick(node)}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{
-                                            duration: 0.25,
-                                            delay: index * 0.08,
-                                        }}
-                                        className={`relative flex items-center gap-3 ${node.offset} focus:outline-none`}
+                                        whileHover={{ scale: 1.08 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        className={`relative flex items-center gap-6 ${node.offset} group focus:outline-none`}
                                     >
-                                        {isCurrent && (
-                                            <span className="absolute -top-10 left-3 text-xs px-3 py-1 rounded-xl bg-surface text-[#3A2A5E] font-bold shadow-md">
-                                                START
-                                            </span>
-                                        )}
-
-                                        <span
-                                            className={`relative w-24 h-24 rounded-full p-[5px] ${
-                                                isCurrent
-                                                    ? "bg-gradient-to-br from-[#FFD24D] via-[#FF9D00] to-[#F3692A] shadow-[0_0_0_6px_rgba(255,255,255,0.2)]"
-                                                    : "bg-surface/20"
-                                            }`}
-                                        >
+                                        {/* Avatar de Lección */}
+                                        <div className="relative">
+                                            <div className={`w-28 h-28 rounded-[2.5rem] p-[5px] transition-all duration-500 shadow-2xl rotate-3 group-hover:rotate-0 ${
+                                                isCurrent ? "bg-gradient-to-br from-yellow-300 via-orange-500 to-red-600 shadow-orange-500/40" : "bg-white/10"
+                                            }`}>
+                                                <div className="w-full h-full rounded-[2.2rem] overflow-hidden bg-[#1a0b3d]">
+                                                    <img src={node.image} alt={node.title} className="w-full h-full object-cover group-hover:scale-115 transition-transform duration-700" />
+                                                </div>
+                                            </div>
                                             {isCurrent && (
-                                                <motion.span
-                                                    className="absolute inset-0 rounded-full border-4 border-white/25"
-                                                    animate={{ scale: [1, 1.09, 1] }}
-                                                    transition={{
-                                                        duration: 1.4,
-                                                        repeat: Infinity,
-                                                    }}
+                                                <motion.div 
+                                                    animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                                                    transition={{ repeat: Infinity, duration: 3 }}
+                                                    className="absolute inset-0 bg-yellow-400 blur-3xl -z-10 rounded-full" 
                                                 />
                                             )}
+                                        </div>
 
-                                            <span
-                                                className={`w-full h-full rounded-full flex items-center justify-center overflow-hidden ${
-                                                    isCurrent
-                                                        ? "bg-gradient-to-b from-[#3D85FF] to-[#2F61C9]"
-                                                        : "bg-surface/90"
-                                                }`}
-                                            >
-                                                {hasImage ? (
-                                                    <img
-                                                        src={node.image}
-                                                        alt={node.title}
-                                                        className={`w-full h-full object-cover ${
-                                                            !isCurrent && "opacity-60"
-                                                        }`}
-                                                    />
-                                                ) : (
-                                                    <Icon
-                                                        className={
-                                                            isCurrent
-                                                                ? "w-9 h-9 text-white"
-                                                                : "w-8 h-8 text-darkGray"
-                                                        }
-                                                        strokeWidth={2.2}
-                                                    />
-                                                )}
-                                            </span>
-
-                                            {isLocked && (
-                                                <span className="absolute -right-1 -bottom-1 w-8 h-8 rounded-full bg-[#2D2442] border-2 border-surface/35 flex items-center justify-center">
-                                                    <Lock className="w-4 h-4 text-surface/90" />
-                                                </span>
-                                            )}
-                                        </span>
-
-                                        <div className="text-left">
-                                            <p className="text-xs uppercase tracking-wider text-surface/70">
-                                                {node.label}
-                                            </p>
-                                            <p className="text-lg font-bold">
-                                                {node.title}
-                                            </p>
+                                        {/* Etiqueta Informativa */}
+                                        <div className="bg-[#1a0b3d]/80 backdrop-blur-md border border-white/10 p-4 rounded-3xl min-w-[200px] shadow-xl group-hover:border-yellow-400/50 transition-colors">
+                                            <span className="block text-[11px] font-black text-yellow-400 tracking-widest uppercase mb-1">{node.label}</span>
+                                            <h3 className="text-xl font-bold text-white">{node.title}</h3>
                                         </div>
                                     </motion.button>
                                 );
@@ -205,24 +130,49 @@ function SexualidadRoute() {
                         </div>
                     </div>
 
-                    <motion.aside
-                        initial={{ opacity: 0, x: 25 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.35, delay: 0.25 }}
-                        className="hidden md:flex justify-center"
-                    >
-                        <div className="relative w-[380px] h-[460px] rounded-[34px] border border-surface/25 bg-white/5 backdrop-blur-[2px] overflow-hidden">
-                            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/15 to-transparent" />
-                            <img
-                                src={islandMultiplicacion}
-                                alt="Ilustración de la isla de sexualidad"
-                                className="w-full h-full object-cover"
+                    {/* SECCIÓN MASCOTA (DERECHA) */}
+                    <div className="md:sticky md:top-32 flex flex-col items-center">
+                        {/* Globo de Diálogo Estilizado */}
+                        <motion.div 
+                            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            transition={{ delay: 0.8 }}
+                            className="relative mb-10 bg-white p-7 rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.4)] max-w-[340px]"
+                        >
+                            <p className="text-[#130627] text-xl font-extrabold leading-snug text-center">
+                                "Descubre nuevos conocimientos sobre tu bienestar."
+                            </p>
+                            {/* Pico del globo */}
+                            <div className="absolute -bottom-4 right-1/2 translate-x-1/2 w-10 h-10 bg-white rotate-45 rounded-sm" />
+                        </motion.div>
+
+                        {/* Personaje Libre (Sin cuadros) */}
+                        <motion.div
+                            animate={{ 
+                                y: [0, -15, 0],
+                                rotate: [0, 1.5, 0, -1.5, 0]
+                            }}
+                            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                            className="relative w-full max-w-[480px] z-10"
+                        >
+                            <img 
+                                src={islandMultiplicacion} 
+                                alt="Guía Jukumari" 
+                                className="w-full h-auto drop-shadow-[0_35px_60px_rgba(0,0,0,0.6)]" 
                             />
-                        </div>
-                    </motion.aside>
+                        </motion.div>
+
+                        {/* Sombra en el "suelo" para dar profundidad */}
+                        <motion.div 
+                            animate={{ scale: [1, 1.1, 1], opacity: [0.2, 0.4, 0.2] }}
+                            transition={{ duration: 6, repeat: Infinity }}
+                            className="w-48 h-6 bg-black/50 blur-2xl rounded-[100%] mt-[-20px]"
+                        />
+                    </div>
+
                 </div>
             </section>
-        </main>
+        </motion.main>
     );
 }
 

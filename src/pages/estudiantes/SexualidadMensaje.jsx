@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router";
-// ─── CAMBIO AQUÍ: Agregamos un ../ extra para salir de 'estudiantes' y luego de 'pages' ───
+// ─── CAMBIO: Importamos ArrowRight para el sentido de avance ───
 import { fade } from "../../animations/pageAnimations"; 
-import { ArrowLeft, AlertTriangle, Heart, User } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle, Heart, User } from "lucide-react";
 
-// ─── CAMBIO AQUÍ: Ajustamos la ruta de la imagen con ../../ ───
+// ─── CAMBIO: Ruta de la imagen ───
 import imagenCelebracion from "../../assets/images/modules/correcta1.png";
 
 function SexualidadMensaje() {
@@ -13,6 +13,9 @@ function SexualidadMensaje() {
     
     // Recuperamos la respuesta del estado de la navegación
     const { respuesta } = location.state || { respuesta: "SI" }; 
+
+    // ─── CAMBIO: Función para avanzar al mapa de módulos ───
+    const handleSiguienteLeccion = () => navigate("/play/sexualidad");
 
     const handleVolver = () => navigate("/play/sexualidad/preguntas-personales");
 
@@ -27,7 +30,7 @@ function SexualidadMensaje() {
             {/* Fondo con degradado radial profundo */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1a0b3d_0%,_#050110_100%)] opacity-80" />
 
-            {/* BOTÓN VOLVER */}
+            {/* BOTÓN VOLVER (Superior izquierda) */}
             <button
                 onClick={handleVolver}
                 className="absolute top-6 left-6 z-50 flex items-center gap-2 bg-white/5 hover:bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 transition-all"
@@ -44,7 +47,7 @@ function SexualidadMensaje() {
 
                 {respuesta === "SI" ? (
                     <div className="grid gap-6 w-full max-w-2xl">
-                        {/* Bloque de Alerta (Primera imagen) */}
+                        {/* Bloque de Alerta */}
                         <motion.div 
                             initial={{ x: -50, opacity: 0 }} animate={{ x: 0, opacity: 1 }}
                             className="relative border-2 border-red-500 bg-[#090118]/90 p-6 md:p-8 rounded-[25px] flex items-center gap-6 shadow-[0_0_30px_rgba(239,68,68,0.2)]"
@@ -88,7 +91,7 @@ function SexualidadMensaje() {
                     </div>
                 ) : (
                     <div className="flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
-                        {/* Texto de Éxito (Segunda imagen) */}
+                        {/* Texto de Éxito */}
                         <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
                             <h3 className="text-6xl md:text-8xl font-black italic tracking-tighter mb-6 flex items-center justify-center md:justify-start gap-4">
                                 <div className="w-3 h-20 bg-gradient-to-b from-yellow-400 to-red-500 rounded-full" />
@@ -99,13 +102,12 @@ function SexualidadMensaje() {
                             </p>
                         </motion.div>
 
-                        {/* Personaje con la imagen importada */}
+                        {/* Personaje */}
                         <motion.div 
                             initial={{ y: 50, opacity: 0 }} 
                             animate={{ y: 0, opacity: 1 }}
                             className="relative group"
                         >
-                            {/* Resplandor de fondo */}
                             <div className="w-72 h-72 md:w-96 md:h-96 bg-cyan-400/30 rounded-full blur-[100px] absolute inset-0 -z-10 animate-pulse" />
                             
                             <img 
@@ -117,15 +119,18 @@ function SexualidadMensaje() {
                     </div>
                 )}
 
-                {/* BOTÓN CONTINUAR (Flecha Amarilla) */}
+                {/* ─── CAMBIO: BOTÓN SIGUIENTE LECCIÓN (Estilo mejorado) ─── */}
                 <motion.button
-                    whileHover={{ scale: 1.1, x: 5 }}
-                    whileTap={{ scale: 0.9 }}
-                    onClick={handleVolver}
-                    className="mt-12 self-center md:self-end bg-[#3b2a5c] p-5 rounded-3xl shadow-[0_10px_0_rgb(0,0,0,0.3)] border-b-4 border-black/40 hover:bg-[#4c3575] transition-all"
+                    whileHover={{ scale: 1.05, x: 10 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleSiguienteLeccion}
+                    className="mt-12 self-center md:self-end flex items-center gap-5 bg-[#3b2a5c] pl-8 pr-3 py-3 rounded-2xl shadow-[0_8px_0_rgb(0,0,0,0.3)] border-b-4 border-black/40 hover:bg-[#4c3575] transition-all group"
                 >
-                    <div className="bg-yellow-400 p-3 rounded-xl">
-                        <ArrowLeft className="w-10 h-10 text-[#090118] rotate-180" strokeWidth={5} />
+                    <span className="text-xl md:text-2xl font-black uppercase tracking-widest text-white">
+                        Siguiente lección
+                    </span>
+                    <div className="bg-yellow-400 p-3 rounded-xl group-hover:bg-yellow-300 transition-colors">
+                        <ArrowRight className="w-8 h-8 md:w-10 md:h-10 text-[#090118]" strokeWidth={4} />
                     </div>
                 </motion.button>
 
