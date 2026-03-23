@@ -1,37 +1,18 @@
 ﻿import { AnimatePresence, motion } from "framer-motion";
-import {
-    LogOut,
-    MoonIcon,
-    SunIcon,
-    UserRoundPen,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
-import { HiOutlinePlay, HiStar } from "react-icons/hi2";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { HiOutlinePlay } from "react-icons/hi2";
 import { Link, useLocation, useNavigate } from "react-router";
 
-// ─── ANIMACIONES (Subimos 2 niveles) ───
-import { fade, dropdownVariants } from "../../animations/pageAnimations";
+import { fade } from "../../animations/pageAnimations";
 import LettersPullUpAnimation from "../../animations/components/LettersPullUpAnimation";
-import ContainerFadeAnimation from "../../animations/components/ContainerFadeAnimation";
-import CounterAnimation from "../../animations/components/CounterAnimation";
-
-// ─── SERVICIOS Y HOOKS (Subimos 2 niveles) ───
 import { logoutUser } from "../../services/authService";
-import { getUser } from "../../services/userService";
-import { isTokenExpiringSoon } from "../../utils/authUtils";
-import { getLocalUserInfo } from "../../utils/userUtils";
-import { useTheme } from "../../hooks/useTheme";
-
-// ─── ASSETS (Subimos 2 niveles) ───
-import switchSound from "../../assets/sounds/switch.mp3";
+import { Howler } from "howler";
 import logoIpas from "../../assets/images/historietas/logo_ipas.png";
+import estudianteImg from "../../assets/images/modules/oso_hormiguero_estudiante.png";
+import docenteImg from "../../assets/images/modules/oso_jucu_maestra.png";
 
-import { Howl, Howler } from "howler";
-import Cookies from "js-cookie";
-
-/* ─── ESTILOS INLINE (S) ─── */
 const S = {
     root: {
         minHeight: "100vh",
@@ -85,9 +66,7 @@ const S = {
     },
     nav: {
         position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -111,7 +90,6 @@ const S = {
         textDecoration: "none",
         background: "rgba(167,139,250,0.1)",
         fontWeight: "600",
-        transition: "all 0.3s ease",
     },
     badge: {
         display: "inline-block",
@@ -163,27 +141,12 @@ const S = {
         padding: "1rem 2.5rem",
         cursor: "pointer",
         boxShadow: "0 6px 30px rgba(245,158,11,0.45), inset 0 1px 0 rgba(255,255,255,0.2)",
-        transition: "transform 0.2s, box-shadow 0.2s",
     },
     quizSection: {
         background: "linear-gradient(135deg, #1e0a4a 0%, #2d1a6e 100%)",
         padding: "5rem 1.5rem",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        textAlign: "center",
         position: "relative",
         overflow: "hidden",
-    },
-    quizCircle: {
-        position: "absolute",
-        width: "500px",
-        height: "500px",
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(109,40,217,0.3) 0%, transparent 70%)",
-        left: "-150px",
-        bottom: "-150px",
-        pointerEvents: "none",
     },
     ctaSecondary: {
         display: "inline-flex",
@@ -201,24 +164,6 @@ const S = {
         boxShadow: "0 4px 24px rgba(245,158,11,0.4)",
         marginTop: "1.75rem",
         textDecoration: "none",
-    },
-    audienceSection: {
-        padding: "5rem 1.5rem",
-        maxWidth: "900px",
-        margin: "0 auto",
-        textAlign: "center",
-    },
-    photoGrid: {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
-        gap: "0.75rem",
-    },
-    photoCard: {
-        borderRadius: "16px",
-        overflow: "hidden",
-        aspectRatio: "1",
-        background: "rgba(255,255,255,0.04)",
-        border: "1px solid rgba(167,139,250,0.15)",
     },
     footer: {
         background: "#050210",
@@ -245,18 +190,67 @@ function Home() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
-   const handlePlay = (target = "/play") => {
-    if (Howler.ctx && Howler.ctx.state === "suspended") Howler.ctx.resume();
-    navigate(target);
-};
+    const handlePlay = (target = "/play") => {
+        if (Howler.ctx && Howler.ctx.state === "suspended") Howler.ctx.resume();
+        navigate(target);
+    };
 
     return (
         <motion.div initial="initial" animate="animate" exit="exit" variants={fade} style={S.root}>
-            {/* HERO SECTION */}
+
+            {/* ══ HERO ══ */}
             <section style={S.hero}>
                 <div style={S.heroBg} />
                 <div style={S.stars} />
                 <div style={S.hexOverlay} />
+
+                {/* Personaje estudiante — izquierda */}
+                <motion.div
+                    initial={{ opacity: 0, x: -40 }}
+                    animate={{ opacity: 1, x: 0, y: [0, -14, 0] }}
+                    transition={{
+                        opacity: { duration: 0.6, delay: 0.4 },
+                        x: { duration: 0.6, delay: 0.4 },
+                        y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.8 }
+                    }}
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: "2%",
+                        zIndex: 3,
+                        pointerEvents: "none",
+                    }}
+                >
+                    <img
+                        src={estudianteImg}
+                        alt="Personaje Estudiante"
+                        style={{ width: "clamp(140px, 18vw, 280px)", height: "auto", objectFit: "contain", filter: "drop-shadow(0 20px 40px rgba(249,212,35,0.3))" }}
+                    />
+                </motion.div>
+
+                {/* Personaje docente — derecha */}
+                <motion.div
+                    initial={{ opacity: 0, x: 40 }}
+                    animate={{ opacity: 1, x: 0, y: [0, -14, 0] }}
+                    transition={{
+                        opacity: { duration: 0.6, delay: 0.5 },
+                        x: { duration: 0.6, delay: 0.5 },
+                        y: { duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }
+                    }}
+                    style={{
+                        position: "absolute",
+                        bottom: 0,
+                        right: "2%",
+                        zIndex: 3,
+                        pointerEvents: "none",
+                    }}
+                >
+                    <img
+                        src={docenteImg}
+                        alt="Personaje Docente"
+                        style={{ width: "clamp(160px, 20vw, 300px)", height: "auto", objectFit: "contain", filter: "drop-shadow(0 20px 40px rgba(168,85,247,0.3))" }}
+                    />
+                </motion.div>
 
                 <nav style={S.nav}>
                     <span style={S.navLogo}>⚡ GPW</span>
@@ -281,58 +275,171 @@ function Home() {
                     </motion.div>
 
                     <motion.p style={{ color: "#b8a4e8", fontSize: "1.05rem", marginBottom: "2rem", lineHeight: 1.65 }}>
-                        ¡Aprende a tomar decisiones para cuidar tu cuerpo y tus relaciones!.
+                        ¡Aprende a tomar decisiones para cuidar tu cuerpo y tus relaciones!
                     </motion.p>
 
-                    <motion.button 
-                        style={S.ctaPrimary} 
-                        whileHover={{ scale: 1.05 }} 
-                        onClick={() => handlePlay("/play")} // <-- Cambiado a función de flecha
+                    <motion.button
+                        style={S.ctaPrimary}
+                        whileHover={{ scale: 1.05 }}
+                        onClick={() => handlePlay("/play")}
                     >
                         <HiOutlinePlay /> EMPEZAR AHORA
                     </motion.button>
                 </div>
             </section>
 
-            {/* QUIZ SECTION */}
+            {/* ══ QUIZ SECTION ══ */}
             <section style={S.quizSection}>
-                <div style={S.quizCircle} />
-                <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} style={{ position: "relative", zIndex: 1, maxWidth: "540px" }}>
+                {/* Círculo glow fondo */}
+                <div style={{
+                    position: "absolute", width: "500px", height: "500px", borderRadius: "50%",
+                    background: "radial-gradient(circle, rgba(109,40,217,0.3) 0%, transparent 70%)",
+                    left: "-150px", bottom: "-150px", pointerEvents: "none",
+                }} />
 
-                    <h2 style={{ fontWeight: 900, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", marginBottom: "0.75rem" }}>¿Te gustaría saber cuánto conoces de tu sexualidad?</h2>
+                <div style={{
+                    maxWidth: "1100px", margin: "0 auto",
+                    display: "flex", flexDirection: "row", alignItems: "center",
+                    gap: "3rem", position: "relative", zIndex: 1,
+                    flexWrap: "wrap", justifyContent: "center",
+                }}>
 
-                    <p style={{ color: "#b8a4e8", fontSize: "0.95rem" }}>Sobre tu forma de relacionarte y tus decisiones</p>
+                    {/* Personajes izquierda */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        style={{ position: "relative", flexShrink: 0 }}
+                    >
+                        {/* Círculo morado detrás */}
+                        <div style={{
+                            position: "absolute",
+                            width: "340px", height: "340px",
+                            borderRadius: "50%",
+                            background: "radial-gradient(circle, #4c1d95 0%, #2e1065 60%, transparent 100%)",
+                            top: "50%", left: "50%",
+                            transform: "translate(-50%, -50%)",
+                            zIndex: 0,
+                        }} />
+                        <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-end", gap: "-20px" }}>
+                            <img
+                                src={estudianteImg}
+                                alt="Estudiante"
+                                style={{ width: "clamp(120px, 15vw, 200px)", height: "auto", objectFit: "contain", filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.5))" }}
+                            />
+                            <img
+                                src={docenteImg}
+                                alt="Docente"
+                                style={{ width: "clamp(140px, 17vw, 220px)", height: "auto", objectFit: "contain", filter: "drop-shadow(0 10px 30px rgba(0,0,0,0.5))", marginLeft: "-20px" }}
+                            />
+                        </div>
+                    </motion.div>
 
-                   
-                <motion.button 
-                    style={S.ctaSecondary} 
-                    whileHover={{ scale: 1.04 }} 
-                    whileTap={{ scale: 0.97 }} 
-                    onClick={() => handlePlay("/quiz-diagnostico")}
-                >
-                    <HiOutlinePlay />
-                    ¡Hacer test!
-                </motion.button>
-                </motion.div>
-            </section>
-
-
-            {/* AUDIENCE SECTION */}
-            <section style={S.audienceSection}>
-                <h2 style={{ fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)", marginBottom: "0.5rem" }}>¡Dirigido a chicos y chicas como tú!</h2>
-                <p style={{ color: "#9c85d0", marginBottom: "2.5rem" }}>Entre 13 y 15 años</p>
-                <div style={S.photoGrid}>
-                    {[1, 2, 3, 4].map((i) => (
-                        <motion.div key={i} style={S.photoCard} whileHover={{ scale: 1.03 }}>
-                            <div style={{ width: "100%", height: "100%", minHeight: "160px", background: `linear-gradient(135deg, hsl(${260 + i * 20},50%,25%) 0%, hsl(${240 + i * 15},40%,18%) 100%)`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "3rem" }}>
-                                {["🧒", "👧", "👦", "🧒‍♀️"][i - 1]}
-                            </div>
-                        </motion.div>
-                    ))}
+                    {/* Texto derecha */}
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        style={{ maxWidth: "480px", textAlign: "left" }}
+                    >
+                        <h2 style={{ fontWeight: 900, fontSize: "clamp(1.6rem, 4vw, 2.5rem)", marginBottom: "0.75rem", lineHeight: 1.2 }}>
+                            ¿Te gustaría saber cuánto conoces de tu sexualidad?
+                        </h2>
+                        <p style={{ color: "#b8a4e8", fontSize: "0.95rem", marginBottom: "0.4rem" }}>
+                            Sobre tu forma de relacionarte y tus decisiones
+                        </p>
+                        <p style={{ color: "#b8a4e8", fontSize: "0.95rem" }}>
+                            ¡Completa este test en 3 minutos!
+                        </p>
+                        <motion.button
+                            style={S.ctaSecondary}
+                            whileHover={{ scale: 1.04 }}
+                            whileTap={{ scale: 0.97 }}
+                            onClick={() => handlePlay("/quiz-diagnostico")}
+                        >
+                            <HiOutlinePlay /> ¡Hacer test!
+                        </motion.button>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* FOOTER */}
+          {/* ══ AUDIENCE SECTION ══ */}
+<section style={{ padding: "5rem 1.5rem", maxWidth: "1000px", margin: "0 auto", textAlign: "center" }}>
+    <h2 style={{ fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)", marginBottom: "0.5rem" }}>
+        ¡Dirigido a chicos y chicas como tú!
+    </h2>
+    <p style={{ color: "#9c85d0", marginBottom: "2.5rem" }}>Entre 13 y 15 años</p>
+
+    <div style={{
+        display: "grid",
+        gridTemplateColumns: "2fr 1fr 1fr",
+        gridTemplateRows: "auto auto",
+        gap: "0.75rem",
+    }}>
+        {/* Foto grande izquierda — ocupa 2 filas */}
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            style={{
+                gridRow: "1 / 3",
+                borderRadius: "20px",
+                overflow: "hidden",
+                border: "1px solid rgba(167,139,250,0.2)",
+            }}
+        >
+            <img
+                src="/src/assets/images/modules/adolescente1.png"
+                alt="Estudiantes"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+        </motion.div>
+
+        {/* Foto arriba derecha 1 */}
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            style={{ borderRadius: "20px", overflow: "hidden", border: "1px solid rgba(167,139,250,0.2)", aspectRatio: "1" }}
+        >
+            <img
+                src="/src/assets/images/modules/adolescente2.png"
+                alt="Estudiantes"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+        </motion.div>
+
+        {/* Foto arriba derecha 2 */}
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            style={{ borderRadius: "20px", overflow: "hidden", border: "1px solid rgba(167,139,250,0.2)", aspectRatio: "1" }}
+        >
+            <img
+                src="/src/assets/images/modules/adolescente3.png"
+                alt="Estudiantes"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+        </motion.div>
+
+        {/* Foto abajo derecha — ocupa 2 columnas */}
+        <motion.div
+            whileHover={{ scale: 1.02 }}
+            style={{
+                gridColumn: "2 / 4",
+                borderRadius: "20px",
+                overflow: "hidden",
+                border: "1px solid rgba(167,139,250,0.2)",
+                aspectRatio: "2/1",
+            }}
+        >
+            <img
+                src="/src/assets/images/modules/adolescente4.png"
+                alt="Estudiantes"
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            />
+        </motion.div>
+    </div>
+</section>
+
+            {/* ══ FOOTER ══ */}
             <footer style={{ background: "linear-gradient(135deg, #f59e0b, #e66e0d)", borderTop: "1px solid rgba(255,255,255,0.2)", marginTop: "auto" }}>
                 <div style={{ ...S.footer, background: "transparent" }}>
                     <div>
