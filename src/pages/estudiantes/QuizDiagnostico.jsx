@@ -67,7 +67,7 @@ function QuizDiagnostico() {
                 <h2 className="text-5xl font-black text-yellow-500 mb-6">¡RESULTADO!</h2>
                 <div className="bg-white/10 p-8 rounded-3xl border border-yellow-500/30 max-w-lg">
                     <p className="text-2xl mb-6 font-bold leading-tight">{result.msg}</p>
-                    <button onClick={() => navigate("/home")} className="bg-yellow-500 text-black font-black px-10 py-3 rounded-full hover:scale-105 transition-transform">
+                    <button onClick={() => navigate("/play")} className="bg-yellow-500 text-black font-black px-10 py-3 rounded-full hover:scale-105 transition-transform">
                         ENTENDIDO
                     </button>
                 </div>

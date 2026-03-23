@@ -30,6 +30,13 @@ import RelacionesSaludablesReading from "../pages/estudiantes/RelacionesSaludabl
 // --- Imports de Docentes ---
 import HomeDocente from "../pages/docentes/HomeDocente";
 import RutaDocente from "../pages/docentes/RutaDocente";
+import GaranteDerecho from "../pages/docentes/GaranteDerecho";
+import Modulo1SexualidadDocente from "../pages/docentes/Modulo1SexualidadDocente";
+import Leccion1SexualidadDocente from "../pages/docentes/Leccion1SexualidadDocente";
+import JuegoQuienSoyYo from "../pages/docentes/JuegoQuienSoyYo";
+import Leccion2SexualidadDocente from "../pages/docentes/Leccion2SexualidadDocente";
+import JuegoRealOImpuesto from "../pages/docentes/JuegoRealOImpuesto";
+
 
 // --- Otros Imports ---
 import Login from "../pages/Login";
@@ -54,6 +61,12 @@ function AnimatedRoutes() {
                 {/* --- RUTAS DEL DOCENTE --- */}
                 <Route path="/home_docente" element={<HomeDocente />} />
                 <Route path="/ruta-docente" element={<RutaDocente />} />
+                <Route path="/garante_derecho" element={<GaranteDerecho />} />
+                <Route path="/ruta-docente/sexualidad" element={<Modulo1SexualidadDocente />} />
+                <Route path="/ruta-docente/sexualidad/leccion1" element={<Leccion1SexualidadDocente />} />
+                <Route path="/ruta-docente/sexualidad/leccion1/juego" element={<JuegoQuienSoyYo />} />
+                <Route path="/ruta-docente/sexualidad/leccion2" element={<Leccion2SexualidadDocente />} />
+                <Route path="/ruta-docente/sexualidad/leccion2/juego" element={<JuegoRealOImpuesto />} />
 
                 {/* --- RUTAS DEL ESTUDIANTE (MODULO SEXUALIDAD) --- */}
                 <Route path="/play" element={<ModuleSelection />} />

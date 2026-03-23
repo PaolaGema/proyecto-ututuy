@@ -317,8 +317,6 @@ function Home() {
             </section>
 
 
-            
-
             {/* AUDIENCE SECTION */}
             <section style={S.audienceSection}>
                 <h2 style={{ fontWeight: 900, fontSize: "clamp(1.5rem, 3.5vw, 2.2rem)", marginBottom: "0.5rem" }}>¡Dirigido a chicos y chicas como tú!</h2>
